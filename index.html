@@ -3,81 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drone Squad BG | FPV Кинематография</title>
+    <title>Drone Squad BG | Кинематографично FPV</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #050505; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .dfr-gradient { background: linear-gradient(90deg, #ff0000 0%, #330000 100%); }
+        :root {
+            --neon-blue: #00f2ff;
+            --deep-black: #050505;
+        }
+        body { 
+            background-color: var(--deep-black); 
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+        .handwritten { 
+            font-family: 'Caveat', cursive; 
+            font-size: 2.5rem;
+            color: var(--neon-blue);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+            transform: translateY(-10px);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at center, rgba(0, 242, 255, 0.15) 0%, transparent 70%);
+        }
+        .price-tag {
+            font-size: 0.9rem;
+            background: rgba(0, 242, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: var(--neon-blue);
+        }
     </style>
 </head>
-<body class="text-white overflow-x-hidden">
+<body>
 
-    <nav class="fixed w-full z-50 p-6 flex justify-between items-center glass">
-        <div class="text-2xl font-black tracking-tighter text-blue-500">DRONE SQUAD <span class="text-white">BG</span></div>
-        <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest font-bold">
-            <a href="#services" class="hover:text-blue-500 transition">Услуги</a>
-            <a href="#dfr" class="hover:text-red-500 transition">DFR Кауза</a>
-            <a href="#contact" class="bg-blue-600 px-4 py-2 rounded-full">Контакт</a>
+    <nav class="fixed w-full z-50 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md">
+        <div class="text-2xl font-black tracking-widest uppercase">
+            Drone Squad <span class="text-[#00f2ff]">BG</span>
         </div>
+        <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full font-bold text-xs hover:bg-[#00f2ff] transition">ЗАПИТВАНЕ</a>
     </nav>
 
-    <section class="relative h-screen flex items-center justify-center">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10"></div>
-        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80" class="absolute inset-0 w-full h-full object-cover opacity-40" alt="FPV Background">
+    <section class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 hero-gradient"></div>
         
-        <div class="relative z-20 text-center px-4">
-            <h1 class="text-6xl md:text-8xl font-black mb-4 tracking-tighter animate-fade-in">БЪДЕЩЕТО Е <br><span class="text-blue-500">ОТ ВЪЗДУХА</span></h1>
-            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto opacity-70">Професионално FPV заснемане на имоти, събития и хотели с DJI Avata 2.</p>
-            <div class="mt-10 flex flex-wrap justify-center gap-4">
-                <a href="#services" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full font-bold transition-transform hover:scale-105">ВИЖ УСЛУГИТЕ</a>
-                <a href="#dfr" class="glass px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all">DFR BG МИСИЯ</a>
+        <div class="relative z-10">
+            <h2 class="handwritten mb-4">... С дрона, небето е платното ...</h2>
+            <h1 class="text-5xl md:text-8xl font-black tracking-tighter mb-6 uppercase italic">
+                ФУТУРИСТИЧНА <br><span class="text-[#00f2ff]">ВИЗИЯ</span>
+            </h1>
+            <p class="text-sm md:text-lg max-w-2xl mx-auto opacity-60 tracking-[0.3em] uppercase">
+                Премиум FPV заснемане за имоти, бизнес и реклама
+            </p>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <section id="services" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="glass-card p-10 rounded-2xl">
+                <span class="price-tag">от €150</span>
+                <h3 class="text-2xl font-bold mt-6 mb-4 uppercase">Недвижими Имоти</h3>
+                <p class="opacity-50 text-sm leading-relaxed mb-6">Динамични One-take турове през интериор и екстериор. Идеално за луксозни къщи и апартаменти.</p>
+                <ul class="text-xs space-y-2 opacity-80 italic">
+                    <li>+ 4K HDR Стабилизирано видео</li>
+                    <li>+ GiroFlow пост-обработка</li>
+                </ul>
+            </div>
+
+            <div class="glass-card p-10 rounded-2xl border-t-4 border-t-[#00f2ff]">
+                <span class="price-tag">от €250</span>
+                <h3 class="text-2xl font-bold mt-6 mb-4 uppercase">Бизнес Видео</h3>
+                <p class="opacity-50 text-sm leading-relaxed mb-6">Представяне на хотели, ресторанти и производствени бази от невиждан ъгъл.</p>
+                <ul class="text-xs space-y-2 opacity-80 italic">
+                    <li>+ Кинематографични преходи</li>
+                    <li>+ Цветови корекции (D-Log M)</li>
+                </ul>
+            </div>
+
+            <div class="glass-card p-10 rounded-2xl">
+                <span class="price-tag">по запитване</span>
+                <h3 class="text-2xl font-bold mt-6 mb-4 uppercase">Специални Проекти</h3>
+                <p class="opacity-50 text-sm leading-relaxed mb-6">Реклами, спортни събития и музикални клипове с висока скорост.</p>
+                <ul class="text-xs space-y-2 opacity-80 italic">
+                    <li>+ High-speed FPV tracking</li>
+                    <li>+ Монтаж за социални мрежи</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-20 border-t border-white/5 bg-white/5 backdrop-blur-sm text-center">
+        <div class="max-w-4xl mx-auto px-6">
+            <p class="text-[0.6rem] tracking-[0.5em] uppercase opacity-40 mb-8 font-bold">Официален Партньор</p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-10 grayscale hover:grayscale-0 transition duration-700">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=SAR+TEAM" class="h-16 opacity-50" alt="SAR Drone Team">
+                <div class="text-left border-l border-white/20 pl-8">
+                    <h4 class="text-lg font-bold uppercase text-red-500">DFR - Drone First Responders</h4>
+                    <p class="text-[0.7rem] opacity-40 max-w-xs mt-2 uppercase">Ние подкрепяме операциите по издирване и спасяване със специализирано FPV оборудване.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="py-24 px-6 max-w-7xl mx-auto">
-        <h2 class="text-4xl font-bold mb-16 text-center">ЕКСПЕРТНИ РЕШЕНИЯ</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500">
-                <div class="text-blue-500 mb-6 text-4xl">🏠</div>
-                <h3 class="text-2xl font-bold mb-4">Недвижими Имоти</h3>
-                <p class="opacity-60">"One-take" видео турове, които превеждат купувача през всяко кътче на имота с невероятна плавност.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500">
-                <div class="text-blue-500 mb-6 text-4xl">🏨</div>
-                <h3 class="text-2xl font-bold mb-4">Хотели & Ресторанти</h3>
-                <p class="opacity-60">Покажете атмосферата и мащаба на вашия бизнес от динамична и вълнуваща перспектива.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500">
-                <div class="text-blue-500 mb-6 text-4xl">💍</div>
-                <h3 class="text-2xl font-bold mb-4">Специални Събития</h3>
-                <p class="opacity-60">Сватби, рождени дни и спортни прояви, заснети по начин, който спира дъха.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="dfr" class="py-20 px-6">
-        <div class="max-w-5xl mx-auto dfr-gradient p-12 rounded-[3rem] flex flex-col md:flex-row items-center gap-10">
-            <div class="flex-1 text-center md:text-left">
-                <span class="bg-white/20 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Обществена Кауза</span>
-                <h2 class="text-4xl font-black mt-4 mb-6">DFR Drone First Responders BG</h2>
-                <p class="text-lg opacity-90 leading-relaxed">Ние вярваме в технологиите, които спасяват животи. Част от всеки комерсиален проект финансира нашето звено за помощ при бедствия и издирване.</p>
-            </div>
-            <div class="bg-black/40 p-8 rounded-2xl border border-white/10 text-center">
-                <p class="text-sm opacity-70 mb-2">Готовност за реакция</p>
-                <p class="text-5xl font-black text-red-500">24/7</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="py-20 text-center glass border-t-0 rounded-t-[3rem]">
-        <h2 class="text-3xl font-bold mb-8">ГОТОВИ ЛИ СТЕ ДА ПОЛЕТИМ?</h2>
-        <a href="https://t.me/YOUR_TELEGRAM_USERNAME" class="inline-block bg-blue-500 p-6 rounded-full hover:bg-blue-400 transition-all transform hover:rotate-12">
-            <span class="text-xl font-bold">ГОВОРИ С ПИЛОТА (TELEGRAM)</span>
+    <footer id="contact" class="py-32 text-center relative">
+        <div class="absolute inset-0 bg-[#00f2ff]/5 blur-[120px] -z-10"></div>
+        <h2 class="text-4xl font-black mb-10 uppercase italic">ГОТОВИ ЛИ СТЕ ЗА <br><span class="text-[#00f2ff]">ИЗЛИТАНЕ?</span></h2>
+        <a href="https://t.me/YOUR_TELEGRAM" class="inline-block glass-card px-12 py-5 rounded-full font-black tracking-widest hover:bg-white hover:text-black transition-all">
+            СВЪРЖИ СЕ В TELEGRAM
         </a>
-        <p class="mt-12 opacity-30 text-xs tracking-widest">© 2026 DRONE SQUAD BG. POWERED BY AI & FPV TECH.</p>
+        <div class="mt-24 opacity-20 text-[10px] tracking-[1em] uppercase font-bold">
+            © 2026 Drone Squad BG | Sofia Air Crew
+        </div>
     </footer>
 
 </body>
