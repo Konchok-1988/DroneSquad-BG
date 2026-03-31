@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        /* Add your styles for mobile optimization here */
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .task { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List Application</h1>
+    <div>
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <select id="categoryInput">
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Shopping">Shopping</option>
+        </select>
+        <input type="number" id="priorityInput" min="1" max="5" placeholder="Priority (1-5)">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+
+    <script>
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${task.name} - ${task.category} - Priority: ${task.priority}`;
+                li.addEventListener('click', () => { 
+                    tasks.splice(index, 1);
+                    updateStorage();
+                });
+                taskList.appendChild(li);
+            });
+        }
+
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const categoryInput = document.getElementById('categoryInput');
+            const priorityInput = document.getElementById('priorityInput');
+
+            if (taskInput.value && categoryInput.value && priorityInput.value) {
+                const newTask = { 
+                    name: taskInput.value,
+                    category: categoryInput.value,
+                    priority: priorityInput.value
+                };
+                tasks.push(newTask);
+                taskInput.value = '';
+                categoryInput.value = 'Work';
+                priorityInput.value = '';
+                updateStorage();
+            }
+        }
+
+        function updateStorage() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        renderTasks();
+    </script>
+</body>
+</html>
