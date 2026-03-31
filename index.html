@@ -3,908 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Drone Squad BG | FPV Cinematic Sofia</title>
+<title>Петър Стайков - Пепича | Drone Squad BG</title>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ── RESET ── */
+/* ── RESET & BASE ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
-/* ── TOKENS ── */
 :root{
   --black:#050508;
   --dark:#0C0C14;
   --card:#12121C;
   --cyan:#00F2FF;
-  --gold:#FFB800;
+  --orange:#FF6600; /* НОВО: Ярко оранжево */
+  --acid-green:#ADFF2F; /* НОВО: Свежо зелено */
   --purple:#9B5DFF;
-  --red:#FF3D5A;
-  --green:#00FF87;
-  --pink:#FF6BBA;
   --white:#F0EDF8;
-  --muted:rgba(240,237,248,0.45);
-  --border:rgba(255,255,255,0.07);
+  --muted:rgba(240,237,248,0.6);
+  --border:rgba(255,255,255,0.1);
 }
 
 body{
   background:var(--black);
   color:var(--white);
   font-family:'Space Grotesk',sans-serif;
-  overflow-x:hidden;
+  line-height:1.6;
+  font-size:1.1rem; /* По-голям основен текст */
 }
 
-/* ── NOISE ── */
-body::after{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  opacity:.5;
-}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--dark)}
-::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px}
-
-/* ───────────────────────────
-   NAV
-─────────────────────────── */
+/* ── NAVIGATION ── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;justify-content:space-between;align-items:center;
-  padding:1.2rem 3rem;
-  background:rgba(5,5,8,0.7);
+  padding:1.5rem 4rem;
+  background:rgba(5,5,8,0.85);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
 
 .nav-logo{
-  font-family:'Orbitron',monospace;
-  font-size:1.1rem;font-weight:900;
-  letter-spacing:0.12em;
-  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  font-family:'Orbitron',sans-serif;
+  font-size:1.4rem;font-weight:900;
+  background:linear-gradient(90deg, var(--orange), var(--cyan));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
 
-.nav-links{display:flex;gap:2rem;align-items:center}
-
-.nav-links a{
-  font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;transition:color .2s;
-}
-.nav-links a:hover{color:var(--white)}
-
-.nav-cta{
-  font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
-  padding:0.6rem 1.4rem;border-radius:100px;text-decoration:none;
-  background:linear-gradient(135deg,var(--cyan),var(--purple));
-  color:var(--black);transition:opacity .2s;
-}
-.nav-cta:hover{opacity:.85}
-
-/* ───────────────────────────
-   HERO
-─────────────────────────── */
+/* ── HERO SECTION ── */
 .hero{
   min-height:100vh;display:flex;flex-direction:column;
   justify-content:center;align-items:center;text-align:center;
-  padding:8rem 2rem 4rem;position:relative;overflow:hidden;
+  padding:10rem 2rem 6rem;position:relative;
 }
 
-/* animated gradient orbs */
-.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
-.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,242,255,.18),transparent 70%);top:-100px;left:-100px;animation:drift1 12s ease-in-out infinite}
-.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(155,93,255,.2),transparent 70%);top:20%;right:-80px;animation:drift2 10s ease-in-out infinite}
-.orb-3{width:350px;height:350px;background:radial-gradient(circle,rgba(255,184,0,.15),transparent 70%);bottom:0;left:30%;animation:drift3 14s ease-in-out infinite}
-.orb-4{width:300px;height:300px;background:radial-gradient(circle,rgba(255,61,90,.12),transparent 70%);bottom:10%;right:10%;animation:drift1 9s ease-in-out infinite reverse}
-
-@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
-@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,40px)}}
-@keyframes drift3{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-30px)}}
-
-/* grid overlay */
-.hero-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(0,242,255,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,242,255,.04) 1px,transparent 1px);
-  background-size:80px 80px;
-  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 20%,transparent 100%);
-}
-
-.hero-eyebrow{
-  font-family:'Orbitron',monospace;
-  font-size:.65rem;letter-spacing:.45em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.8rem;
-  animation:fadeUp .6s ease both;
-}
-.hero-eyebrow::before,.hero-eyebrow::after{
-  content:'';width:28px;height:1px;background:var(--cyan);opacity:.6;
-}
-
-.hero-handwritten{
-  font-family:'Caveat',cursive;
-  font-size:clamp(1.4rem,3vw,2.2rem);
-  color:var(--gold);margin-bottom:1rem;
-  animation:fadeUp .6s .05s ease both;
+.hero-handwritten-top{
+  font-family:'Caveat', cursive;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: -10px;
+  transform: rotate(-2deg);
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
 }
 
 .hero-title{
-  font-family:'Orbitron',monospace;
-  font-size:clamp(3rem,10vw,8rem);
-  font-weight:900;line-height:.9;letter-spacing:-.01em;
-  margin-bottom:1.5rem;
-  animation:fadeUp .6s .1s ease both;
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(3.5rem,12vw,9rem);
+  font-weight:900;line-height:0.85;
+  margin-bottom:2rem;
 }
 
-.hero-title .line1{
-  display:block;
-  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.6) 100%);
+.hero-title .glow-text{
+  background: linear-gradient(to bottom, #fff 30%, var(--cyan) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
 
-.hero-title .line2{
-  display:block;
-  background:linear-gradient(135deg,var(--cyan) 0%,var(--purple) 50%,var(--pink) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+.pilot-badge{
+  background: rgba(173, 255, 47, 0.1);
+  border: 1px solid var(--acid-green);
+  color: var(--acid-green);
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
 }
 
-.hero-sub{
-  font-size:clamp(.8rem,1.5vw,1rem);color:var(--muted);
-  letter-spacing:.2em;text-transform:uppercase;max-width:500px;
-  margin-bottom:2.5rem;
-  animation:fadeUp .6s .15s ease both;
+/* ── GALLERY GRID ── */
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 2rem 0;
 }
 
-.hero-buttons{
-  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-  animation:fadeUp .6s .2s ease both;
+.gallery-item{
+  height: 300px;
+  background: var(--card);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: transform 0.4s;
+}
+.gallery-item:hover{ transform: scale(1.02); border-color: var(--orange); }
+.gallery-item img{ width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+
+/* ── AVATA 2 SPECIFIC ── */
+.avata-highlight{
+  background: linear-gradient(135deg, var(--card) 0%, #1a1a2e 100%);
+  border: 2px solid var(--cyan);
+  padding: 3rem;
+  border-radius: 24px;
+  margin-top: 4rem;
 }
 
-.btn-primary{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-weight:700;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;
-  padding:.9rem 2rem;border-radius:100px;text-decoration:none;
-  background:linear-gradient(135deg,var(--cyan),var(--purple));
-  color:var(--black);transition:transform .2s,box-shadow .2s;
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,242,255,.35)}
-
-.btn-outline{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-weight:600;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;
-  padding:.9rem 2rem;border-radius:100px;text-decoration:none;
-  border:1px solid rgba(0,242,255,.4);color:var(--cyan);
-  transition:all .2s;
-}
-.btn-outline:hover{background:rgba(0,242,255,.08);border-color:var(--cyan)}
-
-/* stat bar */
-.hero-stats{
-  display:flex;gap:0;margin-top:4rem;
-  border:1px solid var(--border);border-radius:12px;overflow:hidden;
-  animation:fadeUp .6s .25s ease both;
+.spec-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.hero-stat{
-  padding:1rem 2rem;text-align:center;border-right:1px solid var(--border);
-}
-.hero-stat:last-child{border-right:none}
+.spec-item b{ color: var(--acid-green); display: block; font-size: 1.2rem; margin-bottom: 0.5rem;}
 
-.hero-stat-num{
-  font-family:'Orbitron',monospace;font-size:1.6rem;font-weight:900;
-}
-.s1{color:var(--cyan)} .s2{color:var(--gold)} .s3{color:var(--purple)} .s4{color:var(--green)}
-
-.hero-stat-label{font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-top:.2rem}
-
-/* scroll arrow */
-.scroll-hint{
-  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:.4rem;
-  opacity:.3;animation:bounce 2s ease infinite;
-}
-.scroll-hint span{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
-
-/* ───────────────────────────
-   SERVICES
-─────────────────────────── */
-.section{padding:7rem 3rem;max-width:1300px;margin:0 auto}
-
-.section-tag{
-  font-family:'Orbitron',monospace;
-  font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;
-  margin-bottom:.8rem;
+/* ── UTILS ── */
+.btn-pro{
+  padding: 1.2rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.3s;
+  display: inline-block;
+  cursor: pointer;
 }
 
-.section-heading{
-  font-family:'Orbitron',monospace;
-  font-size:clamp(2rem,5vw,4rem);
-  font-weight:900;line-height:.95;margin-bottom:1rem;
+.btn-orange{ background: var(--orange); color: white; box-shadow: 0 10px 30px rgba(255,102,0,0.3); }
+.btn-orange:hover{ transform: translateY(-5px); filter: brightness(1.1); }
+
+.section-title{
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 3rem;
 }
 
-.section-sub{font-size:.9rem;color:var(--muted);max-width:500px;line-height:1.7;margin-bottom:4rem}
+.accent-orange{ color: var(--orange); }
+.accent-green{ color: var(--acid-green); }
 
-/* SERVICE CARDS */
-.services-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:1.5rem;
-}
-
-.svc-card{
-  position:relative;border-radius:16px;padding:2.5rem;overflow:hidden;
-  border:1px solid var(--border);background:var(--card);
-  transition:transform .3s,border-color .3s;cursor:default;
-}
-.svc-card:hover{transform:translateY(-6px)}
-.svc-card:hover .svc-glow{opacity:1}
-
-.svc-glow{
-  position:absolute;inset:0;opacity:0;transition:opacity .4s;
-  pointer-events:none;border-radius:16px;
-}
-
-.svc-card.c1{border-top:3px solid var(--cyan)}
-.svc-card.c1 .svc-glow{background:radial-gradient(circle at 30% 30%,rgba(0,242,255,.1),transparent 60%)}
-.svc-card.c1 .svc-num{color:var(--cyan)}
-
-.svc-card.c2{border-top:3px solid var(--gold)}
-.svc-card.c2 .svc-glow{background:radial-gradient(circle at 30% 30%,rgba(255,184,0,.1),transparent 60%)}
-.svc-card.c2 .svc-num{color:var(--gold)}
-
-.svc-card.c3{border-top:3px solid var(--purple)}
-.svc-card.c3 .svc-glow{background:radial-gradient(circle at 30% 30%,rgba(155,93,255,.1),transparent 60%)}
-.svc-card.c3 .svc-num{color:var(--purple)}
-
-.svc-card.c4{border-top:3px solid var(--green)}
-.svc-card.c4 .svc-glow{background:radial-gradient(circle at 30% 30%,rgba(0,255,135,.1),transparent 60%)}
-.svc-card.c4 .svc-num{color:var(--green)}
-
-.svc-card.c5{border-top:3px solid var(--red)}
-.svc-card.c5 .svc-glow{background:radial-gradient(circle at 30% 30%,rgba(255,61,90,.1),transparent 60%)}
-.svc-card.c5 .svc-num{color:var(--red)}
-
-.svc-card.c6{border-top:3px solid var(--pink)}
-.svc-card.c6 .svc-glow{background:radial-gradient(circle at 30% 30%,rgba(255,107,186,.1),transparent 60%)}
-.svc-card.c6 .svc-num{color:var(--pink)}
-
-.svc-num{
-  font-family:'Orbitron',monospace;font-size:.65rem;
-  letter-spacing:.3em;margin-bottom:1.2rem;display:block;
-}
-
-.svc-icon{font-size:2rem;margin-bottom:1rem;display:block}
-
-.svc-title{
-  font-family:'Orbitron',monospace;font-size:1rem;
-  font-weight:700;margin-bottom:.7rem;color:var(--white);
-}
-
-.svc-desc{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
-
-.svc-features{list-style:none;margin-bottom:1.5rem}
-.svc-features li{
-  font-size:.72rem;color:rgba(240,237,248,.6);
-  padding:.3rem 0;border-bottom:1px solid var(--border);
-  display:flex;gap:.5rem;align-items:center;
-}
-.svc-features li::before{content:'→';font-size:.6rem;flex-shrink:0}
-
-.svc-price{
-  display:inline-block;
-  font-family:'Orbitron',monospace;font-size:.75rem;font-weight:700;
-  padding:.4rem 1rem;border-radius:100px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-}
-
-/* ───────────────────────────
-   PROCESS
-─────────────────────────── */
-.process-section{
-  padding:7rem 3rem;
-  background:linear-gradient(180deg,var(--black),var(--dark),var(--black));
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-
-.process-inner{max-width:1100px;margin:0 auto}
-
-.steps{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:1px;background:var(--border);border-radius:12px;overflow:hidden;
-  margin-top:3rem;
-}
-
-.step{
-  background:var(--dark);padding:2rem 1.5rem;
-  text-align:center;transition:background .2s;
-}
-.step:hover{background:var(--card)}
-
-.step-num{
-  font-family:'Orbitron',monospace;font-size:2rem;font-weight:900;
-  line-height:1;margin-bottom:.8rem;
-}
-
-.step-title{font-size:.85rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
-.step-desc{font-size:.72rem;color:var(--muted);line-height:1.6}
-
-/* ───────────────────────────
-   PARTNER BADGE
-─────────────────────────── */
-.partner-section{
-  padding:5rem 3rem;text-align:center;
-  background:var(--dark);border-bottom:1px solid var(--border);
-}
-
-.partner-label{
-  font-family:'Orbitron',monospace;
-  font-size:.55rem;letter-spacing:.5em;color:var(--muted);
-  text-transform:uppercase;margin-bottom:2rem;
-}
-
-.partner-card{
-  display:inline-flex;align-items:center;gap:2rem;
-  padding:2rem 3rem;border-radius:12px;
-  border:1px solid rgba(255,61,90,.3);
-  background:rgba(255,61,90,.05);
-}
-
-.partner-dot{
-  width:10px;height:10px;border-radius:50%;
-  background:var(--red);
-  box-shadow:0 0 12px var(--red);
-  animation:blink 1.5s ease infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
-.partner-name{
-  font-family:'Orbitron',monospace;
-  font-size:1rem;font-weight:700;color:var(--red);
-  letter-spacing:.1em;
-}
-.partner-sub{font-size:.7rem;color:var(--muted);margin-top:.3rem}
-
-/* ───────────────────────────
-   TECH SPECS
-─────────────────────────── */
-.tech-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
-  margin-top:3rem;
-}
-
-.tech-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:12px;padding:2rem;
-  display:flex;gap:1.5rem;align-items:flex-start;
-}
-
-.tech-icon{
-  font-size:2rem;flex-shrink:0;
-  width:56px;height:56px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-style:normal;
-}
-
-.tech-name{font-weight:700;font-size:.9rem;color:var(--white);margin-bottom:.3rem}
-.tech-spec{font-size:.72rem;color:var(--muted);line-height:1.6}
-.tech-badge{
-  display:inline-block;margin-top:.5rem;font-size:.6rem;
-  font-family:'Orbitron',monospace;letter-spacing:.2em;
-  padding:2px 8px;border-radius:100px;
-}
-
-/* ───────────────────────────
-   PRICING
-─────────────────────────── */
-.pricing-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:1.5rem;margin-top:3rem;
-}
-
-.price-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:16px;overflow:hidden;
-  transition:transform .3s;
-}
-.price-card:hover{transform:translateY(-4px)}
-.price-card.featured{border-color:var(--cyan);position:relative}
-.price-card.featured::before{
-  content:'ПОПУЛЯРЕН';
-  position:absolute;top:0;right:0;
-  font-family:'Orbitron',monospace;font-size:.55rem;
-  letter-spacing:.2em;padding:.3rem .8rem;
-  background:var(--cyan);color:var(--black);font-weight:700;
-  border-bottom-left-radius:8px;
-}
-
-.price-top{padding:2rem;border-bottom:1px solid var(--border)}
-.price-name{
-  font-family:'Orbitron',monospace;font-size:.8rem;
-  letter-spacing:.2em;color:var(--muted);margin-bottom:.5rem;
-}
-.price-amount{
-  font-family:'Orbitron',monospace;font-size:2.5rem;font-weight:900;
-  color:var(--white);line-height:1;
-}
-.price-period{font-size:.72rem;color:var(--muted);margin-top:.3rem}
-
-.price-features{padding:2rem;list-style:none}
-.price-features li{
-  font-size:.78rem;color:rgba(240,237,248,.65);
-  padding:.45rem 0;border-bottom:1px solid var(--border);
-  display:flex;gap:.6rem;align-items:center;
-}
-.price-features li .check{color:var(--green);flex-shrink:0}
-.price-features li .cross{color:rgba(255,255,255,.2);flex-shrink:0}
-
-.price-btn{
-  display:block;margin:0 2rem 2rem;
-  text-align:center;text-decoration:none;
-  padding:.85rem;border-radius:100px;
-  font-size:.75rem;font-weight:700;letter-spacing:.15em;
-  transition:all .2s;
-}
-.price-btn.outline{
-  border:1px solid var(--border);color:var(--white);
-}
-.price-btn.outline:hover{border-color:var(--white)}
-.price-btn.solid{
-  background:linear-gradient(135deg,var(--cyan),var(--purple));
-  color:var(--black);
-}
-.price-btn.solid:hover{opacity:.85}
-
-/* ───────────────────────────
-   CTA / FOOTER
-─────────────────────────── */
-.cta-section{
-  padding:8rem 3rem;text-align:center;position:relative;overflow:hidden;
-}
-
-.cta-orb{
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(0,242,255,.08),transparent 70%);
-  pointer-events:none;
-}
-
-.cta-tag{
-  font-family:'Orbitron',monospace;
-  font-size:.6rem;letter-spacing:.4em;color:var(--cyan);
-  text-transform:uppercase;margin-bottom:1rem;
-}
-
-.cta-title{
-  font-family:'Orbitron',monospace;
-  font-size:clamp(2.5rem,7vw,6rem);
-  font-weight:900;line-height:.9;margin-bottom:1rem;
-}
-
-.cta-title .g{
-  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink),var(--gold));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-size:200%;animation:shimmer 3s linear infinite;
-}
-
-@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
-
-.cta-sub{
-  font-family:'Caveat',cursive;font-size:1.8rem;
-  color:var(--gold);margin-bottom:2.5rem;
-}
-
-.cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-
-footer{
-  padding:2rem 3rem;
-  border-top:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:1rem;
-}
-
-.footer-logo{
-  font-family:'Orbitron',monospace;font-size:.9rem;font-weight:900;
-  background:linear-gradient(90deg,var(--cyan),var(--purple));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-
-.footer-copy{font-size:.65rem;color:var(--muted);letter-spacing:.15em}
-
-.footer-links{display:flex;gap:1.5rem}
-.footer-links a{
-  font-size:.65rem;color:var(--muted);text-decoration:none;
-  letter-spacing:.1em;transition:color .2s;
-}
-.footer-links a:hover{color:var(--cyan)}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(16px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* ── RESPONSIVE ── */
 @media(max-width:768px){
-  nav{padding:1rem 1.5rem}
-  .nav-links{display:none}
-  .section{padding:5rem 1.5rem}
-  .hero-stats{flex-wrap:wrap}
-  .tech-grid{grid-template-columns:1fr}
-  footer{flex-direction:column;text-align:center}
+  nav{ padding: 1rem; }
+  .hero-title{ font-size: 4rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════
-     NAV
-═══════════════════════════════ -->
 <nav>
   <div class="nav-logo">DRONE SQUAD BG</div>
-  <div class="nav-links">
-    <a href="#services">Услуги</a>
-    <a href="#tech">Оборудване</a>
-    <a href="#pricing">Цени</a>
-    <a href="#contact">Контакт</a>
-  </div>
-  <a href="#contact" class="nav-cta">Запитване →</a>
+  <a href="#contact" class="btn-pro btn-orange" style="padding: 0.6rem 1.5rem; font-size: 0.8rem;">Let's Fly →</a>
 </nav>
 
-<!-- ═══════════════════════════════
-     HERO
-═══════════════════════════════ -->
 <section class="hero">
-  <div class="hero-grid"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="orb orb-4"></div>
-
-  <div class="hero-eyebrow" style="position:relative;z-index:2">
-    Sofia · Bulgaria · Est. 2026
-  </div>
-
-  <p class="hero-handwritten" style="position:relative;z-index:2">
-    ... с дрона, небето е платното ...
-  </p>
-
-  <h1 class="hero-title" style="position:relative;z-index:2">
-    <span class="line1">DRONE</span>
-    <span class="line2">SQUAD BG</span>
+  <div class="hero-handwritten-top">The Official Home of</div>
+  <h1 class="hero-title">
+    <span class="glow-text">DRONE</span><br>
+    <span style="color:var(--orange)">SQUAD BG</span>
   </h1>
+  
+  <div class="pilot-badge">
+    ПЕТЪР СТАЙКОВ - ПЕПИЧА · YOUR FPV PILOT
+  </div>
 
-  <p class="hero-sub" style="position:relative;z-index:2">
-    Премиум FPV кинематография за имоти, бизнес и реклама
+  <p style="max-width: 700px; font-size: 1.4rem; color: var(--muted); margin-bottom: 3rem;">
+    Професионално FPV заснемане в България. Не просто видео, а <span class="accent-green">чист адреналин</span> в 4K.
   </p>
 
-  <div class="hero-buttons" style="position:relative;z-index:2">
-    <a href="#services" class="btn-primary">Виж Услугите</a>
-    <a href="#contact" class="btn-outline">Свържи се →</a>
-  </div>
-
-  <div class="hero-stats" style="position:relative;z-index:2">
-    <div class="hero-stat">
-      <div class="hero-stat-num s1">4K</div>
-      <div class="hero-stat-label">60fps · D-Log M</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num s2">97</div>
-      <div class="hero-stat-label">km/h в Manual</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num s3">155°</div>
-      <div class="hero-stat-label">Ultra-Wide FOV</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num s4">Indoor</div>
-      <div class="hero-stat-label">& Outdoor</div>
-    </div>
-  </div>
-
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" d="M19 9l-7 7-7-7"/></svg>
+  <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
+    <a href="#gallery" class="btn-pro btn-orange">Виж Галерията</a>
+    <a href="#avata" class="btn-pro" style="border: 1px solid var(--cyan); color: var(--cyan);">Технологията</a>
   </div>
 </section>
 
-<!-- ═══════════════════════════════
-     SERVICES
-═══════════════════════════════ -->
-<section class="section" id="services">
-  <div class="section-tag" style="color:var(--cyan)">01 · Услуги</div>
-  <h2 class="section-heading">Какво<br><span style="color:var(--cyan)">правим</span></h2>
-  <p class="section-sub">FPV дронът влиза там, където конвенционалните камери не могат. Резултатът е материал, който продава.</p>
-
-  <div class="services-grid">
-
-    <div class="svc-card c1">
-      <div class="svc-glow"></div>
-      <span class="svc-num">01</span>
-      <i class="svc-icon">🏢</i>
-      <div class="svc-title">Недвижими Имоти</div>
-      <p class="svc-desc">FPV fly-through на апартаменти, сгради и комплекси. Влизаме в хола, минаваме покрай кухнята, излизаме на терасата — всичко в един непрекъснат кадър.</p>
-      <ul class="svc-features">
-        <li>4K HDR стабилизирано видео</li>
-        <li>Indoor + outdoor заснемане</li>
-        <li>D-Log M color grade</li>
-        <li>Reels версия 9:16</li>
-      </ul>
-      <span class="svc-price" style="color:var(--cyan);border-color:rgba(0,242,255,.3)">от €299</span>
-    </div>
-
-    <div class="svc-card c2">
-      <div class="svc-glow"></div>
-      <span class="svc-num">02</span>
-      <i class="svc-icon">🏨</i>
-      <div class="svc-title">Хотели & Ресторанти</div>
-      <p class="svc-desc">Кинематографски представяния на хотели, ресторанти и boutique пространства от невиждан ъгъл. Атмосфера, не само архитектура.</p>
-      <ul class="svc-features">
-        <li>Лоби, зали, тераси, стаи</li>
-        <li>Ambient lighting grade</li>
-        <li>Social media версии</li>
-        <li>Google Business видео</li>
-      </ul>
-      <span class="svc-price" style="color:var(--gold);border-color:rgba(255,184,0,.3)">от €399</span>
-    </div>
-
-    <div class="svc-card c3">
-      <div class="svc-glow"></div>
-      <span class="svc-num">03</span>
-      <i class="svc-icon">🎯</i>
-      <div class="svc-title">Реклама & Брандове</div>
-      <p class="svc-desc">Product reveals, brand films и корпоративни представяния с висока кинематографска стойност. FPV ъглите, недостъпни за стандартни камери.</p>
-      <ul class="svc-features">
-        <li>Product orbit shots</li>
-        <li>Warehouse fly-through</li>
-        <li>Brand identity video</li>
-        <li>Multi-platform delivery</li>
-      </ul>
-      <span class="svc-price" style="color:var(--purple);border-color:rgba(155,93,255,.3)">от €499</span>
-    </div>
-
-    <div class="svc-card c4">
-      <div class="svc-glow"></div>
-      <span class="svc-num">04</span>
-      <i class="svc-icon">🗺️</i>
-      <div class="svc-title">3D Mapping & Модели</div>
-      <p class="svc-desc">Photogrammetry на сгради и пространства. Интерактивни 3D модели, floor plans с размери и виртуални tours за имотни портали.</p>
-      <ul class="svc-features">
-        <li>Polycam обработка</li>
-        <li>Измерим floor plan</li>
-        <li>OBJ/FBX/GLTF export</li>
-        <li>Embed-ready виртуален тур</li>
-      </ul>
-      <span class="svc-price" style="color:var(--green);border-color:rgba(0,255,135,.3)">от €350</span>
-    </div>
-
-    <div class="svc-card c5">
-      <div class="svc-glow"></div>
-      <span class="svc-num">05</span>
-      <i class="svc-icon">🎪</i>
-      <div class="svc-title">Събития</div>
-      <p class="svc-desc">Сватби, концерти, спортни и корпоративни events. FPV дронът улавя енергията на събитието от перспектива, невъзможна за наземни камери.</p>
-      <ul class="svc-features">
-        <li>High-speed tracking shots</li>
-        <li>Crowd aerial reveals</li>
-        <li>Highlight reel монтаж</li>
-        <li>Same-day preview</li>
-      </ul>
-      <span class="svc-price" style="color:var(--red);border-color:rgba(255,61,90,.3)">от €400</span>
-    </div>
-
-    <div class="svc-card c6">
-      <div class="svc-glow"></div>
-      <span class="svc-num">06</span>
-      <i class="svc-icon">🔍</i>
-      <div class="svc-title">Инспекции</div>
-      <p class="svc-desc">Покриви, фасади, строителен прогрес и трудно достъпни конструкции. Документация за застраховане, строителни компании и facility management.</p>
-      <ul class="svc-features">
-        <li>Покривни инспекции</li>
-        <li>Строителен прогрес</li>
-        <li>Фотодокументация 4K</li>
-        <li>Застрахователни репорти</li>
-      </ul>
-      <span class="svc-price" style="color:var(--pink);border-color:rgba(255,107,186,.3)">по запитване</span>
-    </div>
-
+<section class="section" id="gallery" style="padding: 5rem 2rem; max-width: 1400px; margin: 0 auto;">
+  <h2 class="section-title">Visual <span class="accent-orange">Portfolio</span></h2>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800" alt="FPV Shot"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1473968512647-3e44a224fe8f?auto=format&fit=crop&w=800" alt="FPV Shot"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1527977966376-1c8418f9f108?auto=format&fit=crop&w=800" alt="FPV Shot"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=800" alt="FPV Shot"></div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════
-     PROCESS
-═══════════════════════════════ -->
-<div class="process-section">
-  <div class="process-inner">
-    <div class="section-tag" style="color:var(--purple);text-align:center">02 · Как работим</div>
-    <h2 class="section-heading" style="text-align:center">Процесът е<br><span style="color:var(--purple)">прост</span></h2>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-num" style="color:var(--cyan)">01</div>
-        <div class="step-title">Оглед</div>
-        <div class="step-desc">Посещаваме обекта, планираме маршрута и shot листа. Безплатно.</div>
+<section class="section" id="avata" style="padding: 5rem 2rem; max-width: 1200px; margin: 0 auto;">
+  <h2 class="section-title">The Beast: <span class="accent-green">DJI Avata 2</span></h2>
+  
+  <div class="avata-highlight">
+    <h3>Защо Avata 2 променя играта за вашия бизнес?</h3>
+    <p style="margin: 1rem 0 2rem; font-size: 1.2rem;">Това не е просто дрон, това е летяща кино камера с изкуствен интелект и безупречна стабилизация.</p>
+    
+    <div class="spec-list">
+      <div class="spec-item">
+        <b>1/1.3-inch CMOS</b>
+        Високо качество дори при ниска светлина (нощни клубове, складове).
       </div>
-      <div class="step">
-        <div class="step-num" style="color:var(--gold)">02</div>
-        <div class="step-title">Заснемане</div>
-        <div class="step-desc">2–4 часа на обект. Многократни passes за перфектния кадър.</div>
+      <div class="spec-item">
+        <b>155° Ultra-Wide</b>
+        Улавя цялото пространство в един кадър — перфектно за имоти.
       </div>
-      <div class="step">
-        <div class="step-num" style="color:var(--purple)">03</div>
-        <div class="step-title">Color Grade</div>
-        <div class="step-desc">D-Log M → Rec.709 в DaVinci Resolve 20. Кинематографски вид.</div>
+      <div class="spec-item">
+        <b>Propeller Guards</b>
+        Напълно безопасен за летене на сантиметри от хора и ценни предмети.
       </div>
-      <div class="step">
-        <div class="step-num" style="color:var(--green)">04</div>
-        <div class="step-title">Монтаж</div>
-        <div class="step-desc">Beat-sync монтаж с лицензирана музика. До 2 безплатни ревизии.</div>
-      </div>
-      <div class="step">
-        <div class="step-num" style="color:var(--red)">05</div>
-        <div class="step-title">Доставка</div>
-        <div class="step-desc">MP4 4K + 1080p + 9:16 Reels + Master Archive за всички платформи.</div>
+      <div class="spec-item">
+        <b>RockSteady 3.0+</b>
+        Магическа стабилизация, която прави кадрите гладки като масло.
       </div>
     </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════
-     PARTNER
-═══════════════════════════════ -->
-<div class="partner-section">
-  <div class="partner-label">Официален партньор</div>
-  <div class="partner-card">
-    <div class="partner-dot"></div>
-    <div>
-      <div class="partner-name">DFR · Drone First Responders Sofia</div>
-      <div class="partner-sub">Доброволно Формирование за Защита — Операционна поддръжка с FPV дрон при спасителни акции</div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════
-     TECH
-═══════════════════════════════ -->
-<section class="section" id="tech">
-  <div class="section-tag" style="color:var(--gold)">03 · Оборудване</div>
-  <h2 class="section-heading">Арсеналът</h2>
-  <p class="section-sub">Работим с топ клас DJI оборудване и собствена постпродукция верига.</p>
-
-  <div class="tech-grid">
-    <div class="tech-card">
-      <div class="tech-icon" style="background:rgba(0,242,255,.1)">🚁</div>
-      <div>
-        <div class="tech-name">DJI Avata 2</div>
-        <div class="tech-spec">1/1.3" CMOS · 4K/60fps · 10-bit D-Log M · RockSteady 3.0 · 155° FOV · 23 мин. полет · Prop guards за безопасно indoor летене</div>
-        <span class="tech-badge" style="background:rgba(0,242,255,.1);color:var(--cyan)">PRIMARY CINEMA DRONE</span>
-      </div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-icon" style="background:rgba(155,93,255,.1)">🥽</div>
-      <div>
-        <div class="tech-name">DJI Goggles 3 + RC Motion 3</div>
-        <div class="tech-spec">O4 система · 24ms latency · 2T4R antena array · Micro-OLED 100Hz · Head tracking · до 13 km обхват</div>
-        <span class="tech-badge" style="background:rgba(155,93,255,.1);color:var(--purple)">FPV CONTROL SYSTEM</span>
-      </div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-icon" style="background:rgba(255,184,0,.1)">💻</div>
-      <div>
-        <div class="tech-name">DaVinci Resolve 20</div>
-        <div class="tech-spec">Индустриален стандарт color grade · D-Log M → Rec.709 pipeline · AI Beat Detection · 4K ProRes export · Royalty-free музика</div>
-        <span class="tech-badge" style="background:rgba(255,184,0,.1);color:var(--gold)">POST-PRODUCTION</span>
-      </div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-icon" style="background:rgba(0,255,135,.1)">⚡</div>
-      <div>
-        <div class="tech-name">Anker SOLIX C300 + 3 батерии</div>
-        <div class="tech-spec">288Wh field power station · Зарежда 7 батерии на Avata 2 · Battery rotation workflow · Практически неограничено полетно време</div>
-        <span class="tech-badge" style="background:rgba(0,255,135,.1);color:var(--green)">FIELD POWER</span>
-      </div>
+    
+    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+      <p class="accent-orange" style="font-weight: bold; font-size: 1.3rem;">🚀 С "Пепича" на контролера, Avata 2 изпълнява сложни маневри, които стандартните дронове не могат дори да сънуват.</p>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════
-     PRICING
-═══════════════════════════════ -->
-<section class="section" id="pricing" style="padding-top:0">
-  <div class="section-tag" style="color:var(--green)">04 · Цени</div>
-  <h2 class="section-heading">Прозрачни<br><span style="color:var(--green)">цени</span></h2>
-  <p class="section-sub">Фиксирани пакети без скрити такси. До 2 безплатни ревизии на всеки проект.</p>
-
-  <div class="pricing-grid">
-
-    <div class="price-card">
-      <div class="price-top">
-        <div class="price-name">INTRO</div>
-        <div class="price-amount" style="color:var(--cyan)">€299</div>
-        <div class="price-period">1 имот · 5 работни дни</div>
-      </div>
-      <ul class="price-features">
-        <li><span class="check">✓</span> Видео 60–90 сек. · 4K</li>
-        <li><span class="check">✓</span> D-Log M color grade</li>
-        <li><span class="check">✓</span> Royalty-free музика</li>
-        <li><span class="check">✓</span> MP4 за уебсайт</li>
-        <li><span class="cross">–</span> Reels версия 9:16</li>
-        <li><span class="cross">–</span> 3D модел</li>
-      </ul>
-      <a href="#contact" class="price-btn outline">Запитване →</a>
-    </div>
-
-    <div class="price-card featured">
-      <div class="price-top">
-        <div class="price-name">STANDARD</div>
-        <div class="price-amount" style="color:var(--cyan)">€749</div>
-        <div class="price-period">3 имота · 7 работни дни</div>
-      </div>
-      <ul class="price-features">
-        <li><span class="check">✓</span> 3 видеа по 60–90 сек.</li>
-        <li><span class="check">✓</span> D-Log M color grade</li>
-        <li><span class="check">✓</span> Royalty-free музика</li>
-        <li><span class="check">✓</span> MP4 4K + 1080p</li>
-        <li><span class="check">✓</span> Reels версия 9:16</li>
-        <li><span class="cross">–</span> 3D модел</li>
-      </ul>
-      <a href="#contact" class="price-btn solid">Запитване →</a>
-    </div>
-
-    <div class="price-card">
-      <div class="price-top">
-        <div class="price-name">PREMIUM</div>
-        <div class="price-amount" style="color:var(--purple)">€1 299</div>
-        <div class="price-period">6 имота + 3D · 12 работни дни</div>
-      </div>
-      <ul class="price-features">
-        <li><span class="check">✓</span> 6 видеа пълен пакет</li>
-        <li><span class="check">✓</span> 3D Polycam модел</li>
-        <li><span class="check">✓</span> Floor plan с размери</li>
-        <li><span class="check">✓</span> Logo overlay</li>
-        <li><span class="check">✓</span> Всички формати</li>
-        <li><span class="check">✓</span> Приоритетна доставка</li>
-      </ul>
-      <a href="#contact" class="price-btn outline">Запитване →</a>
-    </div>
-
+<section id="contact" style="padding: 10rem 2rem; text-align: center; background: linear-gradient(to bottom, var(--black), var(--dark));">
+  <h2 class="section-title" style="margin-bottom: 1rem;">ГОТОВИ ЗА <span class="accent-orange">ИЗЛИТАНЕ?</span></h2>
+  <p style="font-size: 1.5rem; margin-bottom: 3rem;">Свържи се с мен директно и нека създадем нещо уникално.</p>
+  
+  <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+    <a href="tel:+359888888888" class="btn-pro btn-orange">📞 0888 XX XX XX</a>
+    <a href="https://instagram.com/dronesquad.bg" class="btn-pro" style="background: #E1306C; color: white;">IG: @dronesquad.bg</a>
   </div>
 </section>
 
-<!-- ═══════════════════════════════
-     CTA
-═══════════════════════════════ -->
-<section class="cta-section" id="contact">
-  <div class="cta-orb"></div>
-  <div class="cta-tag">Готови ли сте?</div>
-  <h2 class="cta-title">
-    <span class="g">ИЗЛИТАМЕ</span><br>ЗАЕДНО
-  </h2>
-  <p class="cta-sub">Първата консултация е безплатна.</p>
-  <div class="cta-buttons">
-    <a href="https://t.me/YOUR_HANDLE" class="btn-primary" style="background:linear-gradient(135deg,#2AABEE,#1d7eb5)">
-      📱 Telegram
-    </a>
-    <a href="mailto:dronesquadbg@gmail.com" class="btn-primary" style="background:linear-gradient(135deg,var(--gold),#ff8c00)">
-      ✉️ Имейл
-    </a>
-    <a href="https://instagram.com/dronesquad.bg" class="btn-outline">
-      Instagram @dronesquad.bg
-    </a>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════
-     FOOTER
-═══════════════════════════════ -->
-<footer>
-  <div class="footer-logo">DRONE SQUAD BG</div>
-  <div class="footer-links">
-    <a href="#services">Услуги</a>
-    <a href="#pricing">Цени</a>
-    <a href="#contact">Контакт</a>
-  </div>
-  <div class="footer-copy">© 2026 Drone Squad BG · Sofia Air Crew · FPV Cinematic</div>
+<footer style="padding: 4rem; text-align: center; border-top: 1px solid var(--border); color: var(--muted);">
+  <p>© 2026 Drone Squad BG | Петър Стайков | Created to Fly</p>
 </footer>
 
 </body>
