@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Drone Squad BG | FPV Cinematic Sofia</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Pacifico&family=Kaushan+Script&display=swap" rel="stylesheet">
 <style>
-/* ── RESET & BASE (увеличен шрифт за по-добра четивност) ── */
+/* ── RESET & BASE ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
@@ -34,7 +34,6 @@ body{
   --border:rgba(255,255,255,0.08);
 }
 
-/* шумов ефект */
 body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
@@ -45,9 +44,7 @@ body::after{
 ::-webkit-scrollbar-track{background:var(--dark)}
 ::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px}
 
-/* ───────────────────────────
-   NAV (ръкописен хедър)
-─────────────────────────── */
+/* ── NAV (ръкописен хедър) ── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;justify-content:space-between;align-items:center;
@@ -58,15 +55,15 @@ nav{
 }
 
 .nav-logo{
-  font-family:'Caveat',cursive;
+  font-family:'Kaushan Script',cursive;
   font-size:2rem;
   font-weight:700;
   letter-spacing:0.02em;
-  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
+  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink),var(--gold));
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
-  text-shadow:0 0 8px rgba(0,242,255,0.2);
+  text-shadow:0 0 12px rgba(0,242,255,0.3);
 }
 
 .nav-links{display:flex;gap:2rem;align-items:center}
@@ -84,20 +81,37 @@ nav{
 }
 .nav-cta:hover{opacity:.85}
 
-/* ───────────────────────────
-   HERO + ФОН ЗА ТЕКСТОВЕ (четивност)
-─────────────────────────── */
+/* ── HERO с нова визуализация на дрон ── */
 .hero{
   min-height:100vh;display:flex;flex-direction:column;
   justify-content:center;align-items:center;text-align:center;
   padding:8rem 2rem 4rem;position:relative;overflow:hidden;
 }
-/* орби и грид остават */
+
+.drone-visual{
+  position:absolute;
+  bottom:5%;
+  right:5%;
+  width:180px;
+  height:180px;
+  z-index:15;
+  filter:drop-shadow(0 0 20px rgba(0,242,255,0.5));
+  animation: floatDrone 4s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes floatDrone{
+  0%,100%{transform:translateY(0px) rotate(0deg);}
+  50%{transform:translateY(-15px) rotate(3deg);}
+}
+.drone-visual svg{
+  width:100%;
+  height:100%;
+}
+
 .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
 .orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,242,255,.18),transparent 70%);top:-100px;left:-100px;animation:drift1 12s ease-in-out infinite}
 .orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(155,93,255,.2),transparent 70%);top:20%;right:-80px;animation:drift2 10s ease-in-out infinite}
 .orb-3{width:350px;height:350px;background:radial-gradient(circle,rgba(255,184,0,.15),transparent 70%);bottom:0;left:30%;animation:drift3 14s ease-in-out infinite}
-.orb-4{width:300px;height:300px;background:radial-gradient(circle,rgba(255,61,90,.12),transparent 70%);bottom:10%;right:10%;animation:drift1 9s ease-in-out infinite reverse}
 .hero-grid{
   position:absolute;inset:0;
   background-image:linear-gradient(rgba(0,242,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,242,255,.04) 1px,transparent 1px);
@@ -108,19 +122,19 @@ nav{
 @keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,40px)}}
 @keyframes drift3{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-30px)}}
 
-/* ----- ПАНЕЛ ЗА ТЕКСТ (фон + уголемяване) ----- */
 .hero-text-panel{
   position:relative;z-index:12;
-  background:rgba(5,5,8,0.55);
+  background:rgba(5,5,8,0.6);
   backdrop-filter:blur(12px);
   border-radius:48px;
   padding:2rem 2.2rem;
-  border:1px solid rgba(0,242,255,0.2);
+  border:1px solid rgba(0,242,255,0.3);
   max-width:1100px;
   width:100%;
   margin-bottom:2rem;
-  transition:all 0.3s;
+  box-shadow:0 0 40px rgba(0,242,255,0.1);
 }
+
 .hero-eyebrow{
   font-family:'Orbitron',monospace;
   font-size:.75rem;
@@ -136,30 +150,31 @@ nav{
 .hero-eyebrow::before,.hero-eyebrow::after{
   content:'';width:32px;height:1px;background:var(--cyan);opacity:.7;
 }
-.hero-title{
-  font-family:'Orbitron',monospace;
-  font-size:clamp(3rem,10vw,8rem);
-  font-weight:900;line-height:.9;letter-spacing:-.01em;
-  margin-bottom:1.5rem;
-}
-.hero-title .line1{
-  display:block;
-  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.7) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.hero-title .line2{
-  display:block;
-  background:linear-gradient(135deg,var(--cyan) 0%,var(--purple) 50%,var(--pink) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+
+/* нов ръкописен шрифт за заглавието */
+.hero-handwritten-title{
+  font-family:'Pacifico',cursive;
+  font-size:clamp(3.5rem,12vw,9rem);
+  font-weight:400;
+  background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink),var(--gold));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:0.5rem;
+  text-shadow:0 0 20px rgba(0,242,255,0.3);
+  letter-spacing:0.02em;
 }
 .hero-sub{
-  font-size:clamp(1rem,2vw,1.2rem);
+  font-size:clamp(1rem,2vw,1.3rem);
   color:var(--white);
-  letter-spacing:.1em;
-  font-weight:400;
-  max-width:600px;
-  margin:0 auto 2rem auto;
-  text-shadow:0 1px 4px rgba(0,0,0,0.5);
+  font-weight:500;
+  max-width:700px;
+  margin:0.5rem auto 1.5rem auto;
+  background:rgba(0,0,0,0.4);
+  display:inline-block;
+  padding:0.3rem 1.2rem;
+  border-radius:40px;
+  backdrop-filter:blur(4px);
 }
 .hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
 .btn-primary{
@@ -169,47 +184,51 @@ nav{
   background:linear-gradient(135deg,var(--cyan),var(--purple));
   color:var(--black);transition:transform .2s,box-shadow .2s;
 }
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,242,255,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,242,255,.5)}
 .btn-outline{
   display:inline-flex;align-items:center;gap:.5rem;
   font-weight:600;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;
   padding:.9rem 2rem;border-radius:100px;text-decoration:none;
-  border:1px solid rgba(0,242,255,.5);color:var(--cyan);
+  border:1px solid rgba(0,242,255,.6);color:var(--cyan);
   transition:all .2s;
 }
-.btn-outline:hover{background:rgba(0,242,255,.12);border-color:var(--cyan)}
+.btn-outline:hover{background:rgba(0,242,255,.15);border-color:var(--cyan);box-shadow:0 0 15px rgba(0,242,255,0.3);}
 
-/* стат панел с фон за четивност */
 .hero-stats{
-  display:flex;
-  gap:0;
-  margin-top:1rem;
-  border:1px solid var(--border);
-  border-radius:20px;
-  overflow:hidden;
-  background:rgba(10,10,18,0.7);
-  backdrop-filter:blur(12px);
-  z-index:12;
-  position:relative;
+  display:flex;gap:0;margin-top:1rem;border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;background:rgba(10,10,18,0.7);
+  backdrop-filter:blur(12px);z-index:12;position:relative;
 }
-.hero-stat{
-  padding:1rem 2rem;text-align:center;border-right:1px solid var(--border);
-}
+.hero-stat{padding:1rem 2rem;text-align:center;border-right:1px solid var(--border);}
 .hero-stat:last-child{border-right:none}
-.hero-stat-num{
-  font-family:'Orbitron',monospace;font-size:1.8rem;font-weight:900;
-}
+.hero-stat-num{font-family:'Orbitron',monospace;font-size:1.8rem;font-weight:900;}
 .s1{color:var(--cyan)} .s2{color:var(--gold)} .s3{color:var(--purple)} .s4{color:var(--green)}
 .hero-stat-label{font-size:.7rem;letter-spacing:.2em;color:var(--muted);margin-top:.2rem}
 .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.4;z-index:20;}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
-/* ── общи секции (увеличен шрифт) ── */
-.section{padding:7rem 3rem;max-width:1400px;margin:0 auto}
+/* ── SERVICES секция с визуални ефекти, орнаменти и фон ── */
+.section{padding:7rem 3rem;max-width:1400px;margin:0 auto;position:relative;}
+.services-section{
+  background:linear-gradient(180deg,var(--black) 0%,rgba(18,18,28,0.8) 100%);
+  position:relative;
+}
+.services-section::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:200px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(0,242,255,0.12), transparent 70%);
+  pointer-events:none;
+}
+
 .section-tag{
   font-family:'Orbitron',monospace;
   font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;
   margin-bottom:.8rem;
+  position:relative;
+  display:inline-block;
 }
 .section-heading{
   font-family:'Orbitron',monospace;
@@ -217,31 +236,56 @@ nav{
   font-weight:900;line-height:1.05;margin-bottom:1rem;
 }
 .section-sub{
-  font-size:1rem;color:var(--muted);max-width:550px;line-height:1.7;margin-bottom:4rem;
+  font-size:1rem;color:var(--muted);max-width:650px;line-height:1.7;margin-bottom:3rem;
+  background:rgba(0,0,0,0.3);
+  padding:0.8rem 1.5rem;
+  border-radius:60px;
+  display:inline-block;
+  backdrop-filter:blur(4px);
 }
 
-/* SERVICES CARDS */
 .services-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:2rem;
 }
 .svc-card{
-  position:relative;border-radius:24px;padding:2rem;overflow:hidden;
-  border:1px solid var(--border);background:var(--card);
-  transition:transform .3s,border-color .3s;
+  position:relative;border-radius:28px;padding:2rem;overflow:hidden;
+  border:1px solid var(--border);background:linear-gradient(145deg, var(--card), rgba(20,20,35,0.9));
+  transition:all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  cursor:pointer;
 }
-.svc-card:hover{transform:translateY(-6px)}
-.svc-card .svc-glow{position:absolute;inset:0;opacity:0;transition:opacity .4s;pointer-events:none}
-.svc-card:hover .svc-glow{opacity:1}
+.svc-card::before{
+  content:'';
+  position:absolute;
+  top:-2px;
+  left:-2px;
+  right:-2px;
+  bottom:-2px;
+  background:linear-gradient(45deg, var(--cyan), var(--purple), var(--gold), var(--pink));
+  border-radius:30px;
+  opacity:0;
+  transition:opacity 0.4s;
+  z-index:-1;
+}
+.svc-card:hover::before{opacity:0.4;}
+.svc-card:hover{transform:translateY(-12px) scale(1.01);border-color:transparent;box-shadow:0 20px 35px rgba(0,0,0,0.4),0 0 0 1px rgba(0,242,255,0.3);}
+.svc-card .svc-glow{position:absolute;inset:0;opacity:0;transition:opacity .4s;pointer-events:none;border-radius:28px;}
+.svc-card:hover .svc-glow{opacity:0.5;}
 .svc-title{
-  font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:700;margin-bottom:.7rem;
+  font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:800;margin-bottom:.8rem;
+  background:linear-gradient(135deg, var(--white), var(--cyan));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 .svc-desc{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
-.svc-features li{font-size:.8rem}
-.svc-price{font-size:.85rem}
+.svc-features li{font-size:.8rem;padding:0.2rem 0;display:flex;gap:0.5rem;align-items:center;}
+.svc-features li::before{content:'✨'; font-size:0.7rem;}
+.svc-price{font-size:.9rem;font-weight:bold;display:inline-block;padding:0.3rem 1rem;border-radius:40px;background:rgba(0,242,255,0.1);}
+.svc-icon{font-size:2rem;display:block;margin-bottom:0.8rem;}
 
-/* GALLERY секция (нова) */
+/* GALLERY */
 .gallery-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
@@ -254,7 +298,6 @@ nav{
   border:1px solid var(--border);
   background:var(--card);
   transition:all 0.3s ease;
-  cursor:pointer;
 }
 .gallery-item:hover{transform:scale(1.02);border-color:var(--cyan);box-shadow:0 12px 28px rgba(0,242,255,0.2);}
 .gallery-item img{
@@ -270,42 +313,29 @@ nav{
   font-size:0.8rem;
   text-align:center;
   color:var(--muted);
-  letter-spacing:0.5px;
   background:rgba(0,0,0,0.3);
   font-weight:500;
 }
 
-/* PROCESS */
-.process-section{padding:7rem 3rem;background:linear-gradient(180deg,var(--black),var(--dark),var(--black));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.process-section{padding:7rem 3rem;background:linear-gradient(180deg,var(--black),var(--dark));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:3rem;}
-.step{background:var(--dark);padding:2rem 1.5rem;text-align:center;}
+.step{background:var(--dark);padding:2rem 1.5rem;text-align:center;transition:all 0.3s;}
+.step:hover{background:rgba(0,242,255,0.05);}
 .step-num{font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:900;}
-.step-title{font-size:1rem;font-weight:700;}
-.step-desc{font-size:.8rem;}
-
-/* TECH */
 .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.8rem;margin-top:2rem;}
 .tech-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.8rem;display:flex;gap:1.2rem;}
-.tech-name{font-size:1rem;font-weight:700;}
-.tech-spec{font-size:.85rem;}
 
-/* PRICING */
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;}
-.price-card{background:var(--card);border:1px solid var(--border);border-radius:24px;}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:24px;transition:transform 0.3s;}
+.price-card:hover{transform:translateY(-8px);border-color:var(--cyan);}
 .price-amount{font-size:2.6rem;font-weight:900;}
-.price-features li{font-size:.85rem;}
-
-/* CTA */
-.cta-section{padding:8rem 3rem;text-align:center;position:relative;}
+.cta-section{padding:8rem 3rem;text-align:center;position:relative;background:radial-gradient(ellipse at 50% 30%, rgba(0,242,255,0.05), transparent);}
 .cta-title{font-family:'Orbitron',monospace;font-size:clamp(2.8rem,8vw,6rem);font-weight:900;}
-.cta-sub{font-family:'Caveat',cursive;font-size:2rem;color:var(--gold);margin-bottom:2rem;}
 
-/* ПИЛОТ ЦИТАТ (нов долен елемент) */
 .pilot-quote-section{
   padding:4rem 2rem;
   background:radial-gradient(ellipse at 50% 0%, rgba(0,242,255,0.08), transparent 80%);
   border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
   text-align:center;
 }
 .pilot-quote-container{
@@ -315,32 +345,14 @@ nav{
   backdrop-filter:blur(12px);
   border-radius:64px;
   padding:2rem 2.5rem;
-  border:1px solid rgba(255,184,0,0.3);
-}
-.pilot-icon{
-  font-size:3rem;
-  filter:drop-shadow(0 0 6px var(--gold));
-  margin-bottom:0.5rem;
+  border:1px solid rgba(255,184,0,0.4);
 }
 .pilot-quote-text{
   font-family:'Caveat',cursive;
   font-size:clamp(1.8rem,5vw,2.8rem);
   color:var(--gold);
   font-weight:600;
-  margin-bottom:0.5rem;
-  letter-spacing:0.02em;
 }
-.pilot-signature{
-  font-size:0.9rem;
-  letter-spacing:0.2em;
-  text-transform:uppercase;
-  color:var(--muted);
-  border-top:1px dashed rgba(255,184,0,0.4);
-  display:inline-block;
-  padding-top:0.8rem;
-  margin-top:0.8rem;
-}
-/* footer */
 footer{
   padding:2rem 3rem;
   border-top:1px solid var(--border);
@@ -350,30 +362,15 @@ footer{
   flex-wrap:wrap;
   gap:1rem;
 }
-.footer-logo{
-  font-family:'Caveat',cursive;
-  font-size:1.6rem;
-  background:linear-gradient(90deg,var(--cyan),var(--purple));
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
 @media(max-width:768px){
   nav{padding:1rem 1.5rem}
   .nav-links{display:none}
   .section{padding:5rem 1.5rem}
-  .hero-text-panel{padding:1.5rem; margin:0 1rem;}
-  .hero-stats{flex-wrap:wrap; gap:0}
-  .tech-grid{grid-template-columns:1fr}
-  .gallery-grid{grid-template-columns:1fr 1fr}
+  .hero-stats{flex-wrap:wrap;}
+  .drone-visual{width:100px;height:100px;bottom:2%;right:2%;}
 }
 @media(max-width:500px){
   .gallery-grid{grid-template-columns:1fr}
-  .pilot-quote-text{font-size:1.8rem;}
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(16px)}
-  to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
@@ -391,18 +388,24 @@ footer{
   <a href="#contact" class="nav-cta">Запитване →</a>
 </nav>
 
-<!-- HERO (текстовете вече са с фон / уголемени) -->
 <section class="hero">
   <div class="hero-grid"></div>
-  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  
+  <!-- SVG дрон визуален ефект -->
+  <div class="drone-visual">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="12" fill="url(#gradDrone)" stroke="var(--cyan)" stroke-width="1.5"/>
+      <path d="M50 38 L50 20 M50 62 L50 80 M38 50 L20 50 M62 50 L80 50" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="50" cy="50" r="4" fill="white"/>
+      <defs><radialGradient id="gradDrone"><stop offset="0%" stop-color="var(--cyan)"/><stop offset="100%" stop-color="var(--purple)"/></radialGradient></defs>
+    </svg>
+  </div>
 
   <div class="hero-text-panel">
     <div class="hero-eyebrow">Sofia · Bulgaria · Est. 2026</div>
-    <h1 class="hero-title">
-      <span class="line1">DRONE</span>
-      <span class="line2">SQUAD BG</span>
-    </h1>
-    <p class="hero-sub">Премиум FPV кинематография за имоти, бизнес и реклама</p>
+    <h1 class="hero-handwritten-title">Drone Squad BG</h1>
+    <p class="hero-sub">🎬 FPV дрон кинематография 🎬</p>
     <div class="hero-buttons">
       <a href="#services" class="btn-primary">Виж Услугите</a>
       <a href="#contact" class="btn-outline">Свържи се →</a>
@@ -418,36 +421,68 @@ footer{
   <div class="scroll-hint"><span>Scroll</span><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" d="M19 9l-7 7-7-7"/></svg></div>
 </section>
 
-<!-- SERVICES -->
-<section class="section" id="services">
+<!-- SERVICES секция с подобрен фон, цветове, орнаменти и акцент на уникалната перспектива -->
+<section class="section services-section" id="services">
   <div class="section-tag" style="color:var(--cyan)">01 · Услуги</div>
-  <h2 class="section-heading">Какво<br><span style="color:var(--cyan)">правим</span></h2>
-  <p class="section-sub">FPV дронът влиза там, където конвенционалните камери не могат. Резултатът е материал, който продава.</p>
+  <h2 class="section-heading">Вашето събитие,<br><span style="color:var(--gold)">от уникална перспектива!</span></h2>
+  <p class="section-sub">✨ FPV дронът разказва истории от небето — кинематография без граници. ✨</p>
+  
   <div class="services-grid">
-    <div class="svc-card c1"><div class="svc-glow"></div><span class="svc-num">01</span><i class="svc-icon">🏢</i><div class="svc-title">Недвижими Имоти</div><p class="svc-desc">FPV fly-through на апартаменти, сгради и комплекси. Всичко в един непрекъснат кадър.</p><ul class="svc-features"><li>4K HDR стабилизирано видео</li><li>Indoor + outdoor заснемане</li><li>Reels версия 9:16</li></ul><span class="svc-price" style="color:var(--cyan);">от €299</span></div>
-    <div class="svc-card c2"><div class="svc-glow"></div><span class="svc-num">02</span><i class="svc-icon">🏨</i><div class="svc-title">Хотели & Ресторанти</div><p class="svc-desc">Кинематографски представяния от невиждан ъгъл. Атмосфера, не само архитектура.</p><ul class="svc-features"><li>Лоби, зали, тераси, стаи</li><li>Ambient lighting grade</li><li>Google Business видео</li></ul><span class="svc-price" style="color:var(--gold);">от €399</span></div>
-    <div class="svc-card c3"><div class="svc-glow"></div><span class="svc-num">03</span><i class="svc-icon">🎯</i><div class="svc-title">Реклама & Брандове</div><p class="svc-desc">Product reveals, brand films и корпоративни представяния с висока кинематографска стойност.</p><ul class="svc-features"><li>Product orbit shots</li><li>Warehouse fly-through</li><li>Multi-platform delivery</li></ul><span class="svc-price" style="color:var(--purple);">от €499</span></div>
-    <div class="svc-card c4"><div class="svc-glow"></div><span class="svc-num">04</span><i class="svc-icon">🗺️</i><div class="svc-title">3D Mapping & Модели</div><p class="svc-desc">Photogrammetry на сгради. Интерактивни 3D модели и виртуални tours.</p><ul class="svc-features"><li>Polycam обработка</li><li>Измерим floor plan</li><li>Embed-ready виртуален тур</li></ul><span class="svc-price" style="color:var(--green);">от €350</span></div>
-    <div class="svc-card c5"><div class="svc-glow"></div><span class="svc-num">05</span><i class="svc-icon">🎪</i><div class="svc-title">Събития</div><p class="svc-desc">Сватби, концерти, корпоративни events. FPV дронът улавя енергията от перспектива.</p><ul class="svc-features"><li>High-speed tracking shots</li><li>Highlight reel монтаж</li><li>Same-day preview</li></ul><span class="svc-price" style="color:var(--red);">от €400</span></div>
-    <div class="svc-card c6"><div class="svc-glow"></div><span class="svc-num">06</span><i class="svc-icon">🔍</i><div class="svc-title">Инспекции</div><p class="svc-desc">Покриви, фасади, строителен прогрес. Документация за застраховане и строителни компании.</p><ul class="svc-features"><li>Покривни инспекции</li><li>Строителен прогрес</li><li>Застрахователни репорти</li></ul><span class="svc-price" style="color:var(--pink);">по запитване</span></div>
+    <div class="svc-card"><div class="svc-glow"></div><i class="svc-icon">🏢</i><div class="svc-title">Недвижими Имоти</div><p class="svc-desc">FPV fly-through през апартаменти и вили. Един непрекъснат кадър, който впечатлява.</p><ul class="svc-features"><li>4K HDR стабилизация</li><li>Indoor + outdoor</li><li>Reels 9:16 версия</li></ul><span class="svc-price">от €299</span></div>
+    <div class="svc-card"><div class="svc-glow"></div><i class="svc-icon">🏨</i><div class="svc-title">Хотели & Ресторанти</div><p class="svc-desc">Кинематографско представяне на атмосфера, интериор и уникални детайли.</p><ul class="svc-features"><li>Лоби, зали, тераси</li><li>Ambient lighting grade</li><li>Google Business видео</li></ul><span class="svc-price">от €399</span></div>
+    <div class="svc-card"><div class="svc-glow"></div><i class="svc-icon">🎯</i><div class="svc-title">Реклама & Брандове</div><p class="svc-desc">Product reveals и корпоративни филми с висока кинематографска стойност.</p><ul class="svc-features"><li>Product orbit shots</li><li>Warehouse fly-through</li><li>Multi-platform delivery</li></ul><span class="svc-price">от €499</span></div>
+    <div class="svc-card"><div class="svc-glow"></div><i class="svc-icon">🗺️</i><div class="svc-title">3D Mapping & Модели</div><p class="svc-desc">Фотограметрия на сгради, интерактивни 3D модели и виртуални обиколки.</p><ul class="svc-features"><li>Polycam обработка</li><li>Измерим floor plan</li><li>Embed-ready тур</li></ul><span class="svc-price">от €350</span></div>
+    <div class="svc-card"><div class="svc-glow"></div><i class="svc-icon">🎪</i><div class="svc-title">Събития</div><p class="svc-desc">Сватби, концерти, корпоративни партита — FPV дронът улавя всяка емоция от въздуха.</p><ul class="svc-features"><li>High-speed tracking</li><li>Highlight reel монтаж</li><li>Same-day preview</li></ul><span class="svc-price">от €400</span></div>
+    <div class="svc-card"><div class="svc-glow"></div><i class="svc-icon">🔍</i><div class="svc-title">Инспекции</div><p class="svc-desc">Покриви, фасади, строителен прогрес — документация за застраховане и строителство.</p><ul class="svc-features"><li>Покривни инспекции</li><li>Строителен прогрес</li><li>Застрахователни репорти</li></ul><span class="svc-price">по запитване</span></div>
   </div>
 </section>
 
-<!-- НОВА ГАЛЕРИЯ СЪС СНИМКИ -->
+<!-- GALLERY -->
 <section class="section" id="gallery">
-  <div class="section-tag" style="color:var(--gold)">02 · Кадри</div>
+  <div class="section-tag" style="color:var(--gold)">02 · Галерия</div>
   <h2 class="section-heading">Вижте <span style="color:var(--gold)">FPV света</span></h2>
-  <p class="section-sub">Реални кадри от наши проекти — кинематография, която вдъхновява.</p>
+  <p class="section-sub">Реални кадри от наши проекти — уникална перспектива от небето.</p>
   <div class="gallery-grid">
-    <div class="gallery-item"><img src="https://images.pexels.com/photos/7727964/pexels-photo-7727964.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Дрон кадър над къща" loading="lazy"><div class="gallery-caption">🏠 Fly-through луксозен имот</div></div>
-    <div class="gallery-item"><img src="https://images.pexels.com/photos/4034922/pexels-photo-4034922.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="FPV над хотелски комплекс" loading="lazy"><div class="gallery-caption">🏨 Хотелски комплекс • дневна светлина</div></div>
-    <div class="gallery-item"><img src="https://images.pexels.com/photos/2505915/pexels-photo-2505915.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Ресторант интериор FPV" loading="lazy"><div class="gallery-caption">🍽️ Ресторант • интериорен FPV проход</div></div>
-    <div class="gallery-item"><img src="https://images.pexels.com/photos/2101117/pexels-photo-2101117.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Апартамент с дрон" loading="lazy"><div class="gallery-caption">🏡 Модерен апартамент • 4K HDR</div></div>
-    <div class="gallery-item"><img src="https://images.pexels.com/photos/3768442/pexels-photo-3768442.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Сграда aerial view" loading="lazy"><div class="gallery-caption">🏙️ Бизнес център • външен орбит</div></div>
-    <div class="gallery-item"><img src="https://images.pexels.com/photos/2440292/pexels-photo-2440292.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Събитие FPV" loading="lazy"><div class="gallery-caption">🎤 Корпоративно събитие • емоция</div></div>
+    <div class="gallery-item"><img src="https://images.pexels.com/photos/7727964/pexels-photo-7727964.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Дрон кадър"><div class="gallery-caption">🏠 Луксозен имот • Fly-through</div></div>
+    <div class="gallery-item"><img src="https://images.pexels.com/photos/4034922/pexels-photo-4034922.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="FPV хотел"><div class="gallery-caption">🏨 Хотелски комплекс • въздушен кадър</div></div>
+    <div class="gallery-item"><img src="https://images.pexels.com/photos/2505915/pexels-photo-2505915.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Ресторант"><div class="gallery-caption">🍽️ Ресторант • интериорен FPV проход</div></div>
+    <div class="gallery-item"><img src="https://images.pexels.com/photos/2101117/pexels-photo-2101117.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Апартамент"><div class="gallery-caption">🏡 Модерен апартамент • 4K HDR</div></div>
+    <div class="gallery-item"><img src="https://images.pexels.com/photos/3768442/pexels-photo-3768442.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Бизнес център"><div class="gallery-caption">🏙️ Бизнес център • орбит shot</div></div>
+    <div class="gallery-item"><img src="https://images.pexels.com/photos/2440292/pexels-photo-2440292.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Събитие"><div class="gallery-caption">🎤 Корпоративно събитие • емоция</div></div>
   </div>
 </section>
 
 <!-- PROCESS -->
-<div class="process-section">
-  <
+<div class="process-section"><div class="process-inner"><div class="section-tag" style="color:var(--purple);text-align:center">03 · Как работим</div><h2 class="section-heading" style="text-align:center">Процесът е<br><span style="color:var(--purple)">прост</span></h2>
+  <div class="steps"><div class="step"><div class="step-num" style="color:var(--cyan)">01</div><div class="step-title">Оглед</div><div class="step-desc">Безплатна консултация и планиране</div></div>
+  <div class="step"><div class="step-num" style="color:var(--gold)">02</div><div class="step-title">Заснемане</div><div class="step-desc">FPV полет с професионални техники</div></div>
+  <div class="step"><div class="step-num" style="color:var(--purple)">03</div><div class="step-title">Color Grade</div><div class="step-desc">DaVinci Resolve кинематографичен look</div></div>
+  <div class="step"><div class="step-num" style="color:var(--green)">04</div><div class="step-title">Монтаж</div><div class="step-desc">Beat-sync + лицензирана музика</div></div>
+  <div class="step"><div class="step-num" style="color:var(--red)">05</div><div class="step-title">Доставка</div><div class="step-desc">4K + Reels + Master Archive</div></div></div></div></div>
+
+<!-- TECH -->
+<section class="section" id="tech"><div class="section-tag" style="color:var(--gold)">04 · Оборудване</div><h2 class="section-heading">Арсеналът</h2><p class="section-sub">DJI Avata 2 · Goggles 3 · Професионален постпродукционен pipeline</p><div class="tech-grid"><div class="tech-card"><div style="font-size:2rem;">🚁</div><div><div class="tech-name">DJI Avata 2</div><div class="tech-spec">4K/60fps · 10-bit D-Log M · 155° FOV</div></div></div><div class="tech-card"><div style="font-size:2rem;">🥽</div><div><div class="tech-name">DJI Goggles 3</div><div class="tech-spec">O4 система · Head tracking · до 13 km обхват</div></div></div><div class="tech-card"><div style="font-size:2rem;">💻</div><div><div class="tech-name">DaVinci Resolve 20</div><div class="tech-spec">D-Log M pipeline · AI Beat Detection</div></div></div></div></section>
+
+<!-- PRICING -->
+<section class="section" id="pricing"><div class="section-tag" style="color:var(--green)">05 · Цени</div><h2 class="section-heading">Прозрачни<br><span style="color:var(--green)">пакети</span></h2><div class="pricing-grid"><div class="price-card"><div class="price-top"><div class="price-name">INTRO</div><div class="price-amount">€299</div></div><ul class="price-features"><li>✓ 60–90 сек. 4K видео</li><li>✓ Color grade</li><li>✗ Reels версия</li></ul><a href="#contact" class="btn-outline" style="margin:1rem;display:block;">Запитване</a></div><div class="price-card featured"><div class="price-top"><div class="price-name">STANDARD</div><div class="price-amount">€749</div></div><ul class="price-features"><li>✓ 3 видеа 4K</li><li>✓ Reels 9:16</li><li>✓ Музикален монтаж</li></ul><a href="#contact" class="btn-primary" style="margin:1rem;display:block;text-align:center;">Запитване</a></div><div class="price-card"><div class="price-top"><div class="price-name">PREMIUM</div><div class="price-amount">€1 299</div></div><ul class="price-features"><li>✓ 6 видеа + 3D модел</li><li>✓ Floor plan</li><li>✓ Всички формати</li></ul><a href="#contact" class="btn-outline" style="margin:1rem;display:block;">Запитване</a></div></div></section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact"><div class="cta-tag">Готови ли сте?</div><h2 class="cta-title"><span style="background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">ИЗЛИТАМЕ</span><br>ЗАЕДНО</h2><p class="cta-sub" style="font-family:'Caveat';font-size:1.8rem;">Първата консултация е безплатна.</p><div class="cta-buttons"><a href="https://t.me/YOUR_HANDLE" class="btn-primary">📱 Telegram</a><a href="mailto:dronesquadbg@gmail.com" class="btn-primary" style="background:linear-gradient(135deg,var(--gold),#ff8c00)">✉️ Имейл</a><a href="https://instagram.com/dronesquad.bg" class="btn-outline">Instagram</a></div></section>
+
+<!-- ЦИТАТ ПРИ ПИЛОТА (най-отдолу) -->
+<div class="pilot-quote-section">
+  <div class="pilot-quote-container">
+    <div class="pilot-icon">✧ 🧑‍✈️ ✧</div>
+    <div class="pilot-quote-text">„С дрон в ръка, небето е платното...“</div>
+    <div class="pilot-signature" style="font-size:0.8rem;margin-top:1rem;">— Вашият пилот, FPV оператор —</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo" style="font-family:'Kaushan Script';">Drone Squad BG</div>
+  <div class="footer-links"><a href="#services">Услуги</a><a href="#gallery">Галерия</a><a href="#pricing">Цени</a><a href="#contact">Контакт</a></div>
+  <div class="footer-copy">© 2026 Drone Squad BG · FPV Cinematic Sofia</div>
+</footer>
+
+</body>
+</html>
