@@ -2,26 +2,24 @@
 <html lang="bg">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Drone Squad BG | Професионална FPV кинематография</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drone Squad BG | Професионална FPV Кинематография & SAR</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 
 <style>
-/* ── CONFIGURATION & TOKENS ── */
 :root {
-  --black: #050505;
-  --dark-gray: #0f0f14;
-  --orange: #FF6B2C;
-  --orange-glow: rgba(255, 107, 44, 0.4);
-  --text-main: #EAEAEA;
-  --text-muted: rgba(234, 234, 234, 0.6);
-  --glass: rgba(255, 255, 255, 0.03);
-  --border-glass: rgba(255, 107, 44, 0.15);
-  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --black: #020202;
+  --dark-grey: #0a0a0b;
+  --orange: #FF6B2C; /* Цвят от логото */
+  --orange-glow: rgba(255, 107, 44, 0.3);
+  --text-main: #f5f5f7;
+  --text-muted: rgba(245, 245, 247, 0.6);
+  --accent-blue: #2c5eff; /* Синьо от флага в логото */
+  --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -32,240 +30,270 @@ body {
   overflow-x: hidden;
 }
 
-/* Background Noise Effect */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 50;
+/* ── UI ELEMENTS ── */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #fff 30%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ── NAVIGATION ── */
 nav {
   position: fixed; top: 0; width: 100%; z-index: 1000;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 1.5rem 5%;
-  background: rgba(5, 5, 5, 0.7);
-  backdrop-filter: blur(15px);
-  border-bottom: 1px solid var(--border-glass);
-  transition: var(--transition);
+  padding: 1.2rem 5%;
+  border-bottom: 1px solid rgba(255,107,44,0.1);
+  background: rgba(2,2,2,0.8);
+  backdrop-filter: blur(20px);
 }
 
 .nav-logo {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 900;
-  font-size: 1.4rem;
-  color: var(--orange);
-  text-decoration: none;
-  letter-spacing: 2px;
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: white; font-family: 'Orbitron';
+  font-weight: 700; font-size: 1.1rem; letter-spacing: 1px;
 }
+
+.nav-logo img { height: 45px; border-radius: 50%; border: 1px solid var(--orange); }
 
 .nav-links { display: flex; gap: 2.5rem; }
 .nav-links a {
-  text-decoration: none; color: var(--text-main);
+  text-decoration: none; color: var(--text-muted);
   font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 1px; transition: var(--transition);
+  letter-spacing: 2px; transition: var(--transition);
 }
-.nav-links a:hover { color: var(--orange); }
+.nav-links a:hover { color: var(--orange); transform: translateY(-2px); }
 
 /* ── HERO SECTION ── */
 .hero {
-  height: 100vh; display: flex; align-items: center; justify-content: center;
-  position: relative; padding: 0 5%; overflow: hidden;
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  position: relative; padding: 120px 5% 60px;
+  background: radial-gradient(circle at 50% 50%, #1a100a 0%, #020202 70%);
 }
 
 .hero-content {
-  position: relative; z-index: 10; text-align: center; max-width: 900px;
+  position: relative; z-index: 10; text-align: center; max-width: 1000px;
+}
+
+.hero-tagline {
+  font-family: 'Orbitron'; color: var(--orange); font-size: 0.9rem;
+  letter-spacing: 5px; margin-bottom: 1.5rem; display: block;
+  text-transform: uppercase;
 }
 
 .hero-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2.5rem, 10vw, 6rem);
-  line-height: 1; margin-bottom: 1.5rem;
-  font-weight: 900; text-transform: uppercase;
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  line-height: 1.1; font-weight: 900; margin-bottom: 2rem;
 }
 
-.hero-title span {
-  display: block;
+.hero-drone-img {
+  width: 450px; max-width: 90%; margin: 2rem auto;
+  filter: drop-shadow(0 20px 50px var(--orange-glow));
+  animation: droneFloat 5s ease-in-out infinite;
 }
 
-.gradient-text {
-  background: linear-gradient(to right, #fff, var(--orange), #fff);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 5s linear infinite;
-}
-
-@keyframes shine {
-  to { background-position: 200% center; }
-}
-
-.hero-drone {
-  position: absolute; right: 10%; top: 55%;
-  width: 300px; filter: drop-shadow(0 0 30px var(--orange-glow));
-  animation: float 6s ease-in-out infinite;
-  z-index: 5; opacity: 0.8;
-}
-
-@keyframes float {
+@keyframes droneFloat {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-25px) rotate(3deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
 }
 
-/* ── CARDS & SECTIONS ── */
-.section-container { padding: 8rem 5%; max-width: 1300px; margin: 0 auto; }
+/* ── SERVICES & INFO ── */
+.section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
 
-.section-label {
-  color: var(--orange); font-family: 'Orbitron'; font-size: 0.8rem;
-  letter-spacing: 4px; margin-bottom: 1rem; display: block;
-}
-
-.services-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+.grid-services {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem; margin-top: 4rem;
 }
 
-.svc-card {
-  background: var(--dark-gray);
-  border: 1px solid var(--border-glass);
-  padding: 3rem 2rem; border-radius: 24px;
-  transition: var(--transition);
-  position: relative; overflow: hidden;
+.card {
+  padding: 3rem 2rem; border-radius: 30px;
+  transition: var(--transition); position: relative;
+  overflow: hidden; cursor: default;
 }
 
-.svc-card:hover {
-  border-color: var(--orange);
+.card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  border-color: var(--orange);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
 }
 
-.svc-card::before {
-  content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle at top right, rgba(255,107,44,0.1), transparent);
-  opacity: 0; transition: var(--transition);
+.card h3 { font-family: 'Orbitron'; margin: 1.5rem 0 1rem; color: var(--orange); }
+
+.advantage-icon { font-size: 2.5rem; }
+
+/* ── REASONS SECTION ── */
+.why-drone {
+  background: var(--dark-grey);
+  border-radius: 50px; padding: 4rem; margin: 4rem 0;
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
-.svc-card:hover::before { opacity: 1; }
-
-.price-tag {
-  display: inline-block; margin-top: 1.5rem;
-  font-weight: 800; color: var(--orange); font-size: 1.2rem;
+.why-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
 }
 
-/* ── BUTTONS ── */
+@media (max-width: 900px) { .why-grid { grid-template-columns: 1fr; } }
+
+.feature-list { list-style: none; }
+.feature-list li {
+  margin-bottom: 1.5rem; padding-left: 2rem; position: relative;
+}
+.feature-list li::before {
+  content: "✓"; position: absolute; left: 0; color: var(--orange); font-weight: bold;
+}
+
+/* ── CONTACT & FOOTER ── */
+.cta-box {
+  text-align: center; padding: 100px 5%;
+  background: linear-gradient(to bottom, transparent, #150b05);
+}
+
 .btn {
-  padding: 1rem 2.5rem; border-radius: 50px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
-  transition: var(--transition); text-decoration: none; display: inline-block;
-  font-size: 0.85rem;
+  display: inline-block; padding: 1.2rem 3rem; border-radius: 100px;
+  font-family: 'Orbitron'; font-weight: 700; text-decoration: none;
+  text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;
+  transition: var(--transition);
 }
 
 .btn-primary {
-  background: var(--orange); color: var(--black);
-  box-shadow: 0 10px 20px var(--orange-glow);
+  background: var(--orange); color: white;
+  box-shadow: 0 15px 30px var(--orange-glow);
 }
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 20px 40px var(--orange-glow); }
 
-.btn-primary:hover { transform: scale(1.05); filter: brightness(1.1); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .hero-drone { width: 180px; top: 70%; right: 5%; }
+footer {
+  padding: 50px 5%; border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex; justify-content: space-between; align-items: center;
+  color: var(--text-muted); font-size: 0.8rem;
 }
 </style>
 </head>
 <body>
 
-<nav id="navbar">
-  <a href="#" class="nav-logo">DRONE SQUAD<span>/</span>BG</a>
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://i.imgur.com/vHqB5oA.jpg" alt="Drone Squad BG Logo"> DRONE SQUAD BG
+  </a>
   <div class="nav-links">
+    <a href="#about">Предимства</a>
     <a href="#services">Услуги</a>
-    <a href="#tech">Техника</a>
-    <a href="#pricing">Цени</a>
+    <a href="#sar">SAR Мисии</a>
     <a href="#contact">Контакт</a>
   </div>
-  <a href="#contact" class="btn btn-primary" style="padding: 0.6rem 1.5rem;">Запитване</a>
+  <a href="#contact" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.7rem;">Запитване</a>
 </nav>
 
 <section class="hero">
-  <img class="hero-drone" src="https://images.pexels.com/photos/2091348/pexels-photo-2091348.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Drone">
-  
   <div class="hero-content">
-    <span class="section-label">EST. 2024 • SOFIA</span>
-    <h1 class="hero-title">
-      <span>Future of</span>
-      <span class="gradient-text">Perspective</span>
-    </h1>
-    <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-      Високоскоростна FPV кинематография за имоти, събития и реклама. Превръщаме пространството в емоция.
+    <span class="hero-tagline">Професионална въздушна кинематография</span>
+    <h1 class="hero-title">Виж света през <br><span class="gradient-text">нова перспектива</span></h1>
+    
+    <img src="https://i.imgur.com/GzFv1Ua.png" alt="DJI Avata 2 Professional FPV" class="hero-drone-img">
+    
+    <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 3rem; font-size: 1.1rem;">
+      Отвъд обикновените кадри. Ние предлагаме динамика, скорост и прецизност, които само FPV технологията може да осигури. От имоти до мащабни събития и спасителни операции.
     </p>
-    <div style="display: flex; gap: 1rem; justify-content: center;">
-      <a href="#services" class="btn btn-primary">Разгледай услугите</a>
-      <a href="#contact" class="btn" style="border: 1px solid var(--text-muted); color: #fff;">Нашите кадри</a>
+    
+    <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+      <a href="#services" class="btn btn-primary">Разгледай Услугите</a>
+      <a href="#about" class="btn glass" style="color: white; border: 1px solid rgba(255,255,255,0.2);">Защо дрон?</a>
     </div>
   </div>
 </section>
 
-<section class="section-container" id="services">
-  <span class="section-label">01 / УСЛУГИ</span>
-  <h2 style="font-family: 'Orbitron'; font-size: 2.5rem;">Какво предлагаме</h2>
+<section class="section" id="about">
+  <div class="why-drone">
+    <div class="why-grid">
+      <div>
+        <span class="hero-tagline" style="text-align: left; margin-bottom: 1rem;">Еволюция на заснемането</span>
+        <h2 style="font-family: 'Orbitron'; font-size: 2.2rem; margin-bottom: 1.5rem;">Предимствата на <br>професионалното дрон заснемане</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">
+          Традиционните камери са ограничени от гравитацията. Нашите дронове я игнорират. Заснемането от въздуха не е просто "мода", а критичен инструмент за маркетинг и сигурност.
+        </p>
+        <ul class="feature-list">
+          <li><strong>Недостъпни ъгли:</strong> Преминаваме през тесни пространства и достигаме височини, непосилни за кранове и хеликоптери.</li>
+          <li><strong>Емоционално въздействие:</strong> Плавните и динамични движения създават кинематографично преживяване, което задържа вниманието.</li>
+          <li><strong>Ефективност:</strong> Спестяваме време и ресурси, като заменяме скъпа техника с един мобилен екип.</li>
+          <li><strong>4K HDR Качество:</strong> Безкомпромисна детайлност за телевизионни продукции и социални мрежи.</li>
+        </ul>
+      </div>
+      <div class="glass" style="padding: 2rem; border-radius: 40px; text-align: center;">
+        <h4 style="font-family: 'Orbitron'; color: var(--orange); margin-bottom: 1rem;">Технически Арсенал</h4>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">Използваме последно поколение DJI системи, оптимизирани за стабилност при вятър и кристален образ в движение.</p>
+        <div style="margin-top: 2rem; font-size: 3rem;">🛰️ ⚡ 🎬</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <span class="hero-tagline" style="display: block; text-align: center;">Какво правим най-добре</span>
+  <h2 style="font-family: 'Orbitron'; font-size: 2.5rem; text-align: center; margin-top: 1rem;">Нашите Услуги</h2>
   
-  <div class="services-grid">
-    <div class="svc-card">
-      <div style="font-size: 2.5rem; margin-bottom: 1.5rem;">🏠</div>
-      <h3 style="font-family: 'Orbitron'; margin-bottom: 1rem;">Недвижими имоти</h3>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">Динамични "fly-through" видеа, които превеждат зрителя през всяка стая без прекъсване.</p>
-      <span class="price-tag">от €299</span>
+  <div class="grid-services">
+    <div class="card glass">
+      <div class="advantage-icon">🏢</div>
+      <h3>Недвижими Имоти</h3>
+      <p style="color: var(--text-muted);">Интериорни и екстериорни обиколки "One-Take", които продават имота още преди огледа.</p>
     </div>
     
-    <div class="svc-card">
-      <div style="font-size: 2.5rem; margin-bottom: 1.5rem;">🏎️</div>
-      <h3 style="font-family: 'Orbitron'; margin-bottom: 1rem;">Екшън & Реклама</h3>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">Следене на автомобили, спортни събития и динамични кадри със скорост до 100 км/ч.</p>
-      <span class="price-tag">от €499</span>
+    <div class="card glass">
+      <div class="advantage-icon">🏎️</div>
+      <h3>Екшън Кинематография</h3>
+      <p style="color: var(--text-muted);">Следене на движещи се обекти със скорост до 100 км/ч. Перфектно за автомобили и екстремни спортове.</p>
     </div>
-
-    <div class="svc-card">
-      <div style="font-size: 2.5rem; margin-bottom: 1.5rem;">🏗️</div>
-      <h3 style="font-family: 'Orbitron'; margin-bottom: 1rem;">Инспекции & 3D</h3>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">Високо детайлно заснемане на труднодостъпни обекти и създаване на облаци от точки.</p>
-      <span class="price-tag">по запитване</span>
+    
+    <div class="card glass">
+      <div class="advantage-icon">⛰️</div>
+      <h3>SAR & Мониторинг</h3>
+      <p style="color: var(--text-muted);">Търсене и спасяване (Search and Rescue) в трудни терени, използвайки високочестотна връзка и прецизност.</p>
     </div>
   </div>
 </section>
 
-<script>
-  // Sticky Navbar Effect
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-      nav.style.padding = '0.8rem 5%';
-      nav.style.background = 'rgba(5, 5, 5, 0.95)';
-    } else {
-      nav.style.padding = '1.5rem 5%';
-      nav.style.background = 'rgba(5, 5, 5, 0.7)';
-    }
-  });
+<section class="cta-box" id="contact">
+  <h2 style="font-family: 'Orbitron'; font-size: 3rem; margin-bottom: 2rem;">Готови ли сте за <br><span class="gradient-text">излитане?</span></h2>
+  <p style="color: var(--text-muted); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+    Свържете се с екипа на Drone Squad BG за индивидуална оферта и консултация относно вашия проект.
+  </p>
+  <div style="display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+    <a href="mailto:contact@dronesquad.bg" class="btn btn-primary">Пишете ни</a>
+    <div style="text-align: left;">
+      <div style="color: var(--orange); font-weight: bold;">Локация:</div>
+      <div>София, България</div>
+    </div>
+  </div>
+</section>
 
-  // Simple Scroll Reveal Logic
-  const observerOptions = { threshold: 0.1 };
+<footer>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <img src="https://i.imgur.com/vHqB5oA.jpg" alt="Logo" style="height: 30px; border-radius: 50%;">
+    <span>DRONE SQUAD BG © 2024</span>
+  </div>
+  <div>Професионален лиценз за оператори на дронове EASA</div>
+</footer>
+
+<script>
+  // Проверка за скрол и анимации
+  const cards = document.querySelectorAll('.card');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = "1";
+        entry.target.style.opacity = 1;
         entry.target.style.transform = "translateY(0)";
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.svc-card').forEach(card => {
-    card.style.opacity = "0";
-    card.style.transform = "translateY(30px)";
+  cards.forEach(card => {
+    card.style.opacity = 0;
+    card.style.transform = "translateY(40px)";
     card.style.transition = "all 0.8s ease-out";
     observer.observe(card);
   });
